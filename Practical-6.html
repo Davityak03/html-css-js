@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <h2>Form</h2>
+        <form id="myForm">
+          <label for="name">Name:</label><br>
+          <input type="text" id="name" name="name" required><br><br>
+          
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" name="email" required><br><br>
+          
+          <label for="mobile">Mobile No.:</label><br>
+          <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required><br><br>
+          
+          <label for="gender">Gender:</label><br>
+          <select id="gender" name="gender" required>
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select><br><br>
+          
+          <label for="color">Favorite Color:</label><br>
+          <input type="color" id="color" name="color" required><br><br>
+          
+          <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+        
+        <div>
+            <textarea id="output" name="passage" rows="10" cols="20"></textarea>
+        </div>
+        
+        <script>
+        function submitForm() {
+          // Get form values
+          var name = document.getElementById("name").value;
+          var email = document.getElementById("email").value;
+          var mobile = document.getElementById("mobile").value;
+          var gender = document.getElementById("gender").value;
+          var color = document.getElementById("color").value;
+          var colorName=getColorNameFromHex(color)
+
+          function getColorNameFromHex(hex){
+            // Hexadecimal to RGB conversion
+            var bigint = parseInt(hex.substring(1), 16);
+            var r = (bigint >> 16) & 255;
+            var g = (bigint >> 8) & 255;
+            var b = bigint & 255;
+            // RGB to color name conversion (basic)
+            if (r === 255 && g === 255 && b === 255) return "White";
+            if (r === 0 && g === 0 && b === 0) return "Black";
+            if (r === 255 && g === 0 && b === 0) return "Red";
+            if (r === 0 && g === 255 && b === 0) return "Green";
+            if (r === 0 && g === 0 && b === 255) return "Blue";
+            // If the color doesn't match the basic ones, return "Custom Color"
+            return "Custom Color";
+            }
+          
+          // Validation
+          if (!name || !email || !mobile || !gender || !color) {
+            alert("All fields are required");
+            return;
+          }
+          
+          // Display information
+          var output = "Name: " + name + "\n";
+          output += "Email: " + email + "\n";
+          output += "Mobile No.: " + mobile + "\n";
+          output += "Gender: " + gender + "\n";
+          output += "Favorite Color:" + colorName + "\n";
+          document.getElementById("output").innerHTML = output;
+        }
+        </script>
+    </body>
+</html>
